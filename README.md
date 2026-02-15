@@ -1,7 +1,7 @@
 # MattieLin-Murray_Advanced-Python
 This is the portfolio of python code that I learned during BISC 4503.
 
-# Sequence Objects (part 1-4)
+# Sequence Objects (parts 1-4)
 ```python
 from Bio.Seq import Seq
 ```
@@ -1005,7 +1005,7 @@ translate(my_string)
 
     'AVMGRWKGGRAAG*'
 
-# Sequence Annotations
+# Sequence Annotations (parts 1-4)
 
 ```python
 from Bio.SeqRecord import SeqRecord
