@@ -3340,10 +3340,3 @@ SeqIO.write(records, "rev_comp.fasta", "fasta")
 
 
     18
-
-
-
-
-```python
-
-```
