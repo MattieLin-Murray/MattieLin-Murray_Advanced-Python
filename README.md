@@ -3343,7 +3343,6 @@ SeqIO.write(records, "rev_comp.fasta", "fasta")
 
 # Sequence Alignments (parts 1-4)
 
-![Yoda Jedi](https://media.tenor.com/gbxPpRF7E7QAAAAC/yoda-jedi-jedi-master-high-frequency-high-vibe.gif)
 ```python
 # https://raw.githubusercontent.com/biopython/biopython/master/Doc/examples/PF05371_seed.sth
 ```
