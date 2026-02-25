@@ -6753,3 +6753,794 @@ for alignment in blast_record.alignments:
 #CTAGGCGGCGGCCGCGGCGGCGGAGGCAGCAGCGGCGGCGGCAGTGGCGGCGGCGACGGTGGCGGCGGCTCGGCC...
 ```
 
+# Open Computer Vision 
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+%matplotlib inline
+```
+
+
+```python
+import cv2
+```
+
+
+```python
+img = cv2.imread("Cat.jpg")
+```
+
+
+```python
+type(img)
+```
+
+
+
+
+    numpy.ndarray
+
+
+
+
+```python
+img_wrong = cv2.imread('wrong/path/doesnot/abcdegh.jpg')
+```
+
+
+```python
+type(img_wrong)
+```
+
+
+
+
+    NoneType
+
+
+
+
+```python
+# Showing the image. My cat in this instance, but blue...
+
+plt.imshow(img)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f7d91a096d0>
+
+
+
+
+<img width="220" height="252" alt="output_6_1" src="https://github.com/user-attachments/assets/6657eac8-e5ca-45a1-86ad-709d5a715df8" />
+
+
+
+```python
+# Fixing my cat to restore her beautiful color
+
+fix_img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+```
+
+
+```python
+plt.imshow(fix_img)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f7d91aa7750>
+
+
+
+
+<img width="220" height="252" alt="output_8_1" src="https://github.com/user-attachments/assets/7844d272-80fc-44a1-938c-6d0707751466" />
+
+
+
+
+```python
+img_gray = cv2.imread("Cat.jpg", cv2.IMREAD_GRAYSCALE)
+img_gray.shape
+```
+
+
+
+
+    (4032, 3024)
+
+
+
+
+```python
+plt.imshow(img_gray)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f7d9809ee90>
+
+
+
+
+<img width="220" height="252" alt="output_10_1" src="https://github.com/user-attachments/assets/d68fe307-be10-4356-b52d-8b512af231a5" />
+
+
+
+```python
+# Making my cat black and white
+
+plt.imshow(img_gray, cmap = "gray") 
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f7d919e9790>
+
+
+
+
+<img width="220" height="252" alt="output_11_1" src="https://github.com/user-attachments/assets/24f1cbc3-ed82-437b-9361-4d10b81c5c8f" />
+
+
+
+
+```python
+fix_img.shape
+```
+
+
+
+
+    (4032, 3024, 3)
+
+
+
+
+```python
+# Stretching the image out
+
+new_img = cv2.resize(fix_img,(1000,400))
+plt.imshow(new_img)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f7d91be1750>
+
+
+
+
+<img width="375" height="169" alt="output_13_1" src="https://github.com/user-attachments/assets/fd4d40a1-09cc-4c33-8bf1-b2f1be93a650" />
+
+
+
+```python
+new_img.shape
+```
+
+
+
+
+    (400, 1000, 3)
+
+
+
+
+```python
+# Cutting the width and height ratios for the picture in half
+
+w_ratio = 0.5
+h_ratio = 0.5
+
+new_img = cv2.resize(fix_img, (0,0), fix_img, w_ratio, h_ratio)
+```
+
+
+```python
+plt.imshow(new_img)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f7d91af73d0>
+
+
+
+
+<img width="221" height="252" alt="output_16_1" src="https://github.com/user-attachments/assets/da51f9d6-febd-4621-9dda-81f6a098af26" />
+
+
+
+
+```python
+new_img.shape
+```
+
+
+
+
+    (2016, 1512, 3)
+
+
+
+
+```python
+# Flipping my cat on the x-axix
+
+flip_img = cv2.flip(fix_img, 0)
+plt.imshow(flip_img)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f7d91bcf750>
+
+
+
+
+<img width="220" height="252" alt="output_18_1" src="https://github.com/user-attachments/assets/e2909d12-fe5b-4dd4-bdcf-190075a37159" />
+
+
+
+```python
+# Flipping my cat on the y-axix & x-axis
+
+flip_img2 = cv2.flip(fix_img, -1)
+plt.imshow(flip_img2)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f7d9192c390>
+
+
+
+
+
+<img width="220" height="252" alt="output_19_1" src="https://github.com/user-attachments/assets/e38380de-0441-4559-b71b-c6f5b857b123" />
+
+
+
+```python
+type(fix_img)
+```
+
+
+
+
+    numpy.ndarray
+
+
+
+
+```python
+cv2.imwrite('Cat_fixed_image.jpg', fix_img)
+```
+
+
+
+
+    True
+
+
+
+
+```python
+cv2.imwrite('Cat_fixed_image.jpg', flip_img)
+```
+
+
+
+
+    True
+
+
+
+
+```python
+img = cv2.imread("Cat.jpg")
+```
+
+
+```python
+plt.imshow(img)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f7d9191a390>
+
+
+
+
+<img width="220" height="252" alt="output_24_1" src="https://github.com/user-attachments/assets/e8a4b12d-cf44-4e9e-bccb-7575bd46094f" />
+
+
+
+
+```python
+img1 = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+```
+
+
+```python
+plt.imshow(img1)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f7d918862d0>
+
+
+
+<img width="220" height="252" alt="output_26_1" src="https://github.com/user-attachments/assets/d3978145-243a-4fff-9468-effe8ee96eac" />
+
+
+
+
+```python
+# Distorting the Hue, Saturation, and Value
+
+img2 = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+```
+
+
+```python
+plt.imshow(img2)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f7d917f2210>
+
+
+
+<img width="220" height="252" alt="output_28_1" src="https://github.com/user-attachments/assets/60934b19-e3fb-4244-a96c-5ad7256c2e0b" />
+
+
+
+
+```python
+# Distorting the Hue, Lightness, and Saturation
+
+img3 = cv2.cvtColor(img, cv2.COLOR_BGR2HLS)
+```
+
+
+```python
+plt.imshow(img3)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f7d917d3e10>
+
+
+
+
+<img width="220" height="252" alt="output_30_1" src="https://github.com/user-attachments/assets/371d0c40-09cd-443a-a80e-fa32f021c5b5" />
+
+
+
+
+```python
+img1 = cv2.imread('do-not-copy-stamp.jpg')
+img2 = cv2.imread("Cat.jpg")
+```
+
+
+```python
+plt.imshow(img1)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f7d91740950>
+
+
+
+
+<img width="376" height="246" alt="output_32_1" src="https://github.com/user-attachments/assets/783060fd-b978-439c-8e1c-6760cfc25cb4" />
+
+
+
+
+```python
+# Fixing colors for our 2 images
+
+img1 = cv2.cvtColor(img1, cv2.COLOR_BGR2RGB)
+img2 = cv2.cvtColor(img2, cv2.COLOR_BGR2RGB)
+```
+
+
+```python
+plt.imshow(img1)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f7d916b4b90>
+
+
+
+<img width="376" height="246" alt="output_34_1" src="https://github.com/user-attachments/assets/49df5687-4bbd-496c-9a92-33c792efdbe8" />
+
+
+
+
+```python
+plt.imshow(img2)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f7d9162a1d0>
+
+
+
+
+<img width="220" height="252" alt="output_35_1" src="https://github.com/user-attachments/assets/dc7057bf-ecb8-4d10-9d29-35b87adfd512" />
+
+
+
+```python
+img1 = cv2.resize(img1, (1200, 1200))
+img2 = cv2.resize(img2, (1200, 1200))
+```
+
+
+```python
+alpha = 0.5
+beta = 0.5
+```
+
+
+```python
+blended = cv2.addWeighted(img1, alpha, img2, beta, gamma=0)
+```
+
+
+```python
+#Overwritten the two images together. In this case, we made a watermark. 
+
+plt.imshow(blended)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f7d9160f950>
+
+
+
+
+<img width="263" height="252" alt="output_39_1" src="https://github.com/user-attachments/assets/eb9094e0-ed02-4826-a9b3-21717496b825" />
+
+
+
+```python
+# Made image 2 lighter (my cat) 
+
+alpha = 0.8
+beta = 0.2
+
+blended1 = cv2.addWeighted(img1, alpha, img2, beta, 0)
+plt.imshow(blended1)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f7d91579350>
+
+
+
+
+
+<img width="263" height="252" alt="output_40_1" src="https://github.com/user-attachments/assets/e1e7e479-4e01-4f31-b5f0-105f3e1d2702" />
+
+
+```python
+# Made image 1 lighter (the watermark) 
+
+alpha = 0.2
+beta = 0.8
+
+blended1 = cv2.addWeighted(img1, alpha, img2, beta, 0)
+plt.imshow(blended1)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f7d91553910>
+
+
+
+
+
+<img width="263" height="252" alt="output_41_1" src="https://github.com/user-attachments/assets/c21a124b-2df0-45bb-8e23-1ec1a81990b7" />
+
+
+
+```python
+img1 = cv2.imread('do-not-copy-stamp.jpg')
+img2 = cv2.imread('Cat.jpg')
+
+img1 = cv2.cvtColor(img1, cv2.COLOR_BGR2RGB)
+img2 = cv2.cvtColor(img2, cv2.COLOR_BGR2RGB)
+
+img1 = cv2.resize(img1, (200,200))
+```
+
+
+```python
+# Changed the sizes so image 1 fits inside of image 2
+
+large_img = img2
+small_img = img1
+
+x_offset = 0 
+y_offset = 0 
+
+x_end = x_offset + small_img.shape[1]
+y_end = y_offset + small_img.shape[0]
+
+large_img[y_offset:y_end, x_offset:x_end] = small_img
+
+plt.imshow(large_img)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f7d914b8a10>
+
+
+
+
+<img width="220" height="252" alt="output_43_1" src="https://github.com/user-attachments/assets/6ce6c526-acb0-4fda-958f-8b8f48c522b5" />
+
+
+
+```python
+# https://github.com/worklifesg/Python-for-Computer-Vision-with-OpenCV-and-Deep-Learning
+```
+
+
+```python
+import cv2
+import matplotlib.pyplot as plt
+%matplotlib inline
+```
+
+
+```python
+img = cv2.imread("rainbow.jpg")
+```
+
+
+```python
+plt.imshow(img)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f7d9141f710>
+
+
+
+<img width="207" height="252" alt="output_47_1" src="https://github.com/user-attachments/assets/63df8943-4a77-487a-85a6-eeac882aee07" />
+
+
+
+
+```python
+img = cv2.imread('rainbow.jpg', 0)
+```
+
+
+```python
+plt.imshow(img, cmap = 'gray')
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f7d91402b10>
+
+
+
+
+
+<img width="207" height="252" alt="output_49_1" src="https://github.com/user-attachments/assets/a972987d-614d-4597-9427-211961a49b45" />
+
+
+
+```python
+ret1, thresh1 = cv2.threshold(img, 127, 255, cv2.THRESH_BINARY)
+```
+
+
+```python
+ret1
+```
+
+
+
+
+    127.0
+
+
+
+
+```python
+plt.imshow(thresh1, cmap = "gray")
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f7d91371350>
+
+
+
+
+<img width="207" height="252" alt="output_52_1" src="https://github.com/user-attachments/assets/260f6622-340e-404a-950d-e8b6bd75baac" />
+
+
+
+
+```python
+img2 = cv2.imread('rainbow.jpg', 0)
+ret1, thresh1 = cv2.threshold(img2, 127, 255, cv2.THRESH_TRUNC)
+plt.imshow(thresh1, cmap = "gray")
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f7d91353790>
+
+
+
+
+<img width="207" height="252" alt="output_53_1" src="https://github.com/user-attachments/assets/70d64868-04b3-4f0e-b37a-377caf8966db" />
+
+
+
+```python
+img3 = cv2.imread('rainbow.jpg', 0)
+ret1, thresh1 = cv2.threshold(img3, 127,255, cv2.THRESH_TOZERO)
+plt.imshow(thresh1, cmap = "gray")
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f7d912b8690>
+
+
+
+
+
+
+<img width="207" height="252" alt="output_54_1" src="https://github.com/user-attachments/assets/a78ec587-b85b-4d72-9b6e-5cf90c566c42" />
+
+
+```python
+img_r = cv2.imread('crossword.jpg', 0)
+plt.imshow(img_r, cmap = "gray")
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f7d91223290>
+
+
+
+
+<img width="178" height="252" alt="output_55_1" src="https://github.com/user-attachments/assets/8f0086e2-bd4f-4a90-a427-1406be0e67d6" />
+
+
+
+```python
+def show_pic(img):
+    fig = plt.figure(figsize = (15,15))
+    ax = fig.add_subplot(111)
+    ax.imshow(img, cmap = 'gray')
+```
+
+
+```python
+show_pic(img_r)
+```
+
+
+
+<img width="557" height="850" alt="output_57_0" src="https://github.com/user-attachments/assets/2abdecfe-75b8-45a7-96d4-deada20e3787" />
+
+
+
+```python
+# Turned the crossword into just black vs white
+
+ret, th1 = cv2.threshold(img_r, 127, 255, cv2.THRESH_BINARY)
+show_pic(th1)
+```
+
+
+
+<img width="557" height="850" alt="output_58_0" src="https://github.com/user-attachments/assets/b6bc9cf6-cc25-4c72-9706-dbde315a76e4" />
+
+
+
+```python
+# Changing the threshold to make the text more clear (kind of like the contrast)
+
+ret, th1 = cv2.threshold(img_r, 200, 255, cv2.THRESH_BINARY)
+show_pic(th1)
+```
+
+
+<img width="557" height="850" alt="output_59_0" src="https://github.com/user-attachments/assets/0ccdbeab-19d0-409b-b2a8-b932892602b4" />
+
+
+
+```python
+th2 = cv2.adaptiveThreshold(img_r, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 11,8)
+```
+
+
+```python
+show_pic(th2)
+```
+
+
+<img width="557" height="850" alt="output_61_0" src="https://github.com/user-attachments/assets/2933f744-d98a-4052-984d-68a19d875169" />
+
+
+
+```python
+blended = cv2.addWeighted(src1 = th1, alpha = 0.6, 
+                         src2 = th2, beta = 0.4, gamma = 0)
+show_pic(blended)
+```
+
+
+
+<img width="557" height="850" alt="output_62_0" src="https://github.com/user-attachments/assets/da0bed0d-b517-4877-a148-2f4e370ae2ec" />
+
+
+
+```python
+th3 = cv2.adaptiveThreshold(img_r, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 11, 8)
+
+blended = cv2.addWeighted(src1 = th1,alpha=0.6,
+                         src2 = th2,beta=0.4,gamma = 0)
+show_pic(blended)
+```
+
+
+<img width="557" height="850" alt="output_63_0" src="https://github.com/user-attachments/assets/a03810d2-f5ef-4b61-80fc-694e75e2b0eb" />
+
+
