@@ -3342,6 +3342,8 @@ SeqIO.write(records, "rev_comp.fasta", "fasta")
     18
 
 # Sequence Alignments (parts 1-4)
+
+![Yoda Jedi](https://media.tenor.com/gbxPpRF7E7QAAAAC/yoda-jedi-jedi-master-high-frequency-high-vibe.gif)
 ```python
 # https://raw.githubusercontent.com/biopython/biopython/master/Doc/examples/PF05371_seed.sth
 ```
@@ -4768,6 +4770,7 @@ aligner.score(target, query, strand = "+")
 
 # Challenge 1 + Blast
 ### Blast
+![Explosion](https://media.tenor.com/Iy7fBTt59M8AAAAC/explosion-explode-clouds-of-smoke.gif)
 
 ```python
 from Bio.Blast import NCBIWWW
