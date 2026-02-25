@@ -4770,7 +4770,7 @@ aligner.score(target, query, strand = "+")
 
 # Challenge 1 + Blast
 ### Blast
-![Explosion](https://media.tenor.com/Iy7fBTt59M8AAAAC/explosion-explode-clouds-of-smoke.gif)
+![Blast Off Penguins](https://media.giphy.com/media/qP4CXhBeKJTbSzjNfC/giphy.gif)
 
 ```python
 from Bio.Blast import NCBIWWW
