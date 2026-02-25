@@ -1993,7 +1993,7 @@ print("%s %i %i %i %i" % (rc.id, len(rc), len(rc.features), len(rc.dbxrefs), len
     Testing 9609 41 0 0
 
 
-# Sequence Input/Output
+# Sequence Input/Output (part 1-3)
 
 ```python
 from Bio import SeqIO
@@ -3341,7 +3341,7 @@ SeqIO.write(records, "rev_comp.fasta", "fasta")
 
     18
 
-# Sequence Alignments (parts 1-4)
+# Multiple Sequence Alignments (parts 1-5)
 
 ```python
 # https://raw.githubusercontent.com/biopython/biopython/master/Doc/examples/PF05371_seed.sth
@@ -6755,7 +6755,7 @@ for alignment in blast_record.alignments:
 #CTAGGCGGCGGCCGCGGCGGCGGAGGCAGCAGCGGCGGCGGCAGTGGCGGCGGCGACGGTGGCGGCGGCTCGGCC...
 ```
 
-# Open Computer Vision 
+# Open Computer Vision (part 1-3)
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
