@@ -7544,3 +7544,737 @@ show_pic(blended)
 <img width="557" height="850" alt="output_63_0" src="https://github.com/user-attachments/assets/a03810d2-f5ef-4b61-80fc-694e75e2b0eb" />
 
 
+# Aspect Detection 
+### Coner Detection 
+
+```python
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+%matplotlib inline
+```
+
+
+```python
+flat_chess = cv2.imread('Green_Chess_Board.jpg')
+flat_chess = cv2.cvtColor(flat_chess, cv2.COLOR_BGR2RGB)
+plt.imshow(flat_chess)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f67d064dc90>
+
+
+
+
+<img width="257" height="252" alt="output_1_1" src="https://github.com/user-attachments/assets/f82459f1-17db-4048-8398-d79ba93af396" />
+
+
+
+```python
+gray_flat_chess = cv2.cvtColor(flat_chess, cv2.COLOR_BGR2GRAY)
+plt.imshow(gray_flat_chess, cmap = "gray")
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f67d0641190>
+
+
+
+
+<img width="257" height="252" alt="output_2_1" src="https://github.com/user-attachments/assets/1037810b-c493-402f-8c8e-ecf9bee7ad69" />
+
+
+
+
+```python
+real_chess =cv2.imread('Chess_Board.jpg')
+real_chess = cv2.cvtColor(real_chess, cv2.COLOR_BGR2RGB)
+plt.imshow(real_chess)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f67d05a7290>
+
+
+
+<img width="374" height="252" alt="output_3_1" src="https://github.com/user-attachments/assets/0d91b59c-0fd8-4b66-8a1d-a48426876721" />
+
+
+
+```python
+gray_real_chess = cv2.cvtColor(real_chess, cv2.COLOR_BGR2GRAY)
+plt.imshow(gray_real_chess, cmap = "gray")
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f67d050fa90>
+
+
+
+
+<img width="374" height="252" alt="output_4_1" src="https://github.com/user-attachments/assets/7f38b05b-9629-450f-88a4-f42e1e1da75b" />
+
+
+
+
+```python
+gray = np.float32(gray_flat_chess)
+dst = cv2.cornerHarris(src = gray, blockSize = 2, ksize = 3, k = 0.04)
+
+dst = cv2.dilate(dst, None)
+```
+
+
+```python
+# Detecting corners on the flat chess board
+
+flat_chess[dst>0.01*dst.max()] = [255,0,0]
+
+plt.imshow(flat_chess)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f67d04fadd0>
+
+
+
+
+<img width="257" height="252" alt="output_6_1" src="https://github.com/user-attachments/assets/124deebf-aac7-4ac0-aaef-badde7127559" />
+
+
+
+
+```python
+# Detecting corners on the real chess board, but with a lot of noise
+
+gray = np.float32(gray_real_chess)
+dst = cv2.cornerHarris(src = gray, blockSize =2, ksize =3, k=0.04)
+dst = cv2.dilate(dst, None)
+
+real_chess[dst>0.01*dst.max()] = [255,0,0]
+
+plt.imshow(real_chess)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f67d0463a90>
+
+
+<img width="374" height="252" alt="output_7_1" src="https://github.com/user-attachments/assets/ac0a1246-3f28-42cb-9f6c-9c939f84aa68" />
+
+
+
+
+
+```python
+#Shi-Tomasi Corner Detection
+
+corners = cv2.goodFeaturesToTrack(gray_flat_chess, 64, 0.01 ,10)
+```
+
+
+```python
+corners = np.int0(corners)
+
+for i in corners:
+    x,y = i.ravel()
+    cv2.circle(flat_chess, (x,y), 3,(255,0,0), -1)
+    
+plt.imshow(flat_chess)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f67d03d5b50>
+
+
+<img width="257" height="252" alt="output_9_1" src="https://github.com/user-attachments/assets/abd26ac5-082f-4200-b1e6-a169de7d256b" />
+
+
+
+
+```python
+# Slightly better corner detection on the real chess board given by the green dots
+
+corners = cv2.goodFeaturesToTrack(gray_real_chess, 100, 0.01 ,10)
+
+corners = np.int0(corners)
+
+for i in corners:
+    x,y = i.ravel()
+    cv2.circle(real_chess, (x,y), 3,(0, 255 ,0), -1)
+    
+plt.imshow(real_chess)
+```
+
+
+
+    <matplotlib.image.AxesImage at 0x7f67d0343190>
+
+
+
+<img width="374" height="252" alt="output_10_1" src="https://github.com/user-attachments/assets/c603e8ab-1110-4bb8-8a5b-05aa93d7d553" />
+
+```
+
+### Edge Detection
+
+```python
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+%matplotlib inline
+```
+
+
+```python
+img = cv2.imread('Mushrooms.jpg')
+plt.imshow(img)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7fed36442f50>
+
+
+
+
+<img width="368" height="252" alt="output_1_1" src="https://github.com/user-attachments/assets/120dc72d-9749-4d47-bb55-9aef892d2f62" />
+
+
+
+
+```python
+edges = cv2.Canny(image =img, threshold1 = 127, threshold2 = 127)
+
+plt.imshow(edges)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7fed3ce0e850>
+
+
+
+
+<img width="368" height="252" alt="output_2_1" src="https://github.com/user-attachments/assets/f841723c-3eaa-4690-a3c3-09251c9c51b9" />
+
+
+
+```python
+med_value = np.median(img)
+med_value
+```
+
+
+
+
+    94.0
+
+
+
+
+```python
+lower = int(max(0, 0.7*med_value))
+upper = int(min(255,1.3*med_value))
+
+edges = cv2.Canny(img, threshold1 = lower, threshold2 = upper)
+
+plt.imshow(edges)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7fed3cd83550>
+
+
+
+
+<img width="368" height="252" alt="output_4_1" src="https://github.com/user-attachments/assets/fb9b43de-98e6-4b52-ba96-a94ff6086747" />
+
+
+
+```python
+edges = cv2.Canny(image = img, threshold1 = lower, threshold2 = upper +100)
+
+plt.imshow(edges)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7fed3cd6b8d0>
+
+
+
+<img width="368" height="252" alt="output_5_1" src="https://github.com/user-attachments/assets/e1c87db4-760f-4044-9f9f-9169cab6a90d" />
+
+
+
+
+
+```python
+blurred_img = cv2.blur(img, ksize = (5,5))
+
+edges = cv2.Canny(image=blurred_img,
+                  threshold1 = lower,
+                  threshold2 = upper)
+
+plt.imshow(edges)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7fed3ccdb290>
+
+
+
+<img width="368" height="252" alt="output_6_1" src="https://github.com/user-attachments/assets/a63caccf-e35a-42b9-b3ea-616765c77be3" />
+
+
+
+
+```python
+blurred_img = cv2.blur(img, ksize = (7,7))
+
+edges = cv2.Canny(image=blurred_img,
+                  threshold1 = lower,
+                  threshold2 = upper)
+
+plt.imshow(edges)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7fed3ccbf9d0>
+
+
+<img width="368" height="252" alt="output_7_1" src="https://github.com/user-attachments/assets/b0413d7a-ee6e-44f0-ac8d-c2fc994bb645" />
+
+
+
+
+
+```python
+blurred_img = cv2.blur(img, ksize = (5,5))
+
+edges = cv2.Canny(image=blurred_img,
+                  threshold1 = lower,
+                  threshold2 = upper + 50)
+
+plt.imshow(edges)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7fed3cc24f90>
+
+<img width="368" height="252" alt="output_8_1" src="https://github.com/user-attachments/assets/2c293686-022a-4b53-a5da-40a8c6c872a3" />
+
+
+
+```python
+blurred_img = cv2.blur(img, ksize = (5,5))
+
+edges = cv2.Canny(image=blurred_img,
+                  threshold1 = lower,
+                  threshold2 = upper + 100)
+
+plt.imshow(edges)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7fed3cb90710>
+
+<img width="368" height="252" alt="output_9_1" src="https://github.com/user-attachments/assets/3a21df23-92c9-4442-8c13-b21aeeff390c" />
+
+
+```python
+blurred_img = cv2.blur(img, ksize = (7,7))
+
+edges = cv2.Canny(image=blurred_img,
+                  threshold1 = lower,
+                  threshold2 = upper + 60)
+
+plt.imshow(edges)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7fed3c8eea90>
+
+
+<img width="368" height="252" alt="output_10_1" src="https://github.com/user-attachments/assets/ec34934a-87c2-4f92-a3b4-7631bc56ccf0" />
+
+
+
+```python
+blurred_img = cv2.blur(img, ksize = (8,8))
+
+edges = cv2.Canny(image=blurred_img,
+                  threshold1 = lower,
+                  threshold2 = upper)
+
+plt.imshow(edges)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7fed3c865150>
+
+<img width="368" height="252" alt="output_11_1" src="https://github.com/user-attachments/assets/60289b65-a314-4023-9edd-a62fc34a4979" />
+
+
+# Feature Dectection
+### Feature Matches
+
+```python
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+%matplotlib inline
+```
+
+
+```python
+def display(img, cmap = 'gray'):
+    fig = plt.figure(figsize = (12, 10))
+    ax = fig.add_subplot(111)
+    ax.imshow(img, cmap = 'gray')
+```
+
+
+```python
+apple_jacks = cv2.imread("Apple_Jacks.jpg", 0)
+display(apple_jacks)
+```
+
+
+<img width="410" height="578" alt="output_2_0" src="https://github.com/user-attachments/assets/450fd560-9eef-4bcc-a596-3c7b2e2bf955" />
+
+
+```python
+cereals=cv2.imread('All_Cereal.jpg',0)
+display(cereals)
+```
+
+
+<img width="709" height="537" alt="output_3_0" src="https://github.com/user-attachments/assets/a0fdb00a-3880-49da-9c27-01a58989fc35" />
+
+
+```python
+orb =cv2.ORB_create()
+
+kp1,des1 = orb.detectAndCompute(apple_jacks, mask=None)
+kp2,des2 = orb.detectAndCompute(cereals, mask=None)
+```
+
+
+```python
+bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck = True)
+matches = bf.match(des1,des2)
+```
+
+
+```python
+matches = sorted(matches, key = lambda x:x.distance)
+```
+
+
+```python
+apple_jacks_matches = cv2.drawMatches(apple_jacks, kp1, cereals, kp2, matches[:25], None, flags = 2)
+```
+
+
+```python
+display(apple_jacks_matches)
+```
+
+<img width="716" height="442" alt="output_8_0" src="https://github.com/user-attachments/assets/0f0b1c5c-d7c9-4fd8-81a9-d64c293426da" />
+
+
+```python
+sift = cv2.SIFT_create()
+```
+
+
+```python
+kp1, des1 = sift.detectAndCompute(apple_jacks, None)
+kp2, des2 = sift.detectAndCompute(cereals, None)
+```
+
+
+```python
+bf = cv2.BFMatcher()
+matches = bf.knnMatch(des1, des2, k=2)
+```
+
+
+```python
+good = []
+
+for match1, match2 in matches:
+    if match1.distance < 0.75*match2.distance:
+        good.append([match1])
+```
+
+
+```python
+print('Length of total matches:', len(matches))
+print('Length of good matches:', len(good))
+```
+
+    Length of total matches: 4323
+    Length of good matches: 160
+
+
+
+```python
+sift_matches = cv2.drawMatchesKnn(apple_jacks, kp1, cereals, kp2, good, None, flags=2)
+display(sift_matches)
+```
+
+<img width="716" height="442" alt="output_14_0" src="https://github.com/user-attachments/assets/f61e4773-5744-4d61-8c66-3d980cb0b080" />
+
+
+```python
+sift = cv2.SIFT_create()
+
+kp1, des1 = sift.detectAndCompute(apple_jacks, None)
+kp2, des2 = sift.detectAndCompute(cereals, None)
+```
+
+
+```python
+flann_index_KDtree = 0
+index_params = dict(algorithm=flann_index_KDtree, trees =5)
+search_params = dict(checks=50)
+```
+
+
+```python
+flann = cv2.FlannBasedMatcher(index_params, search_params)
+
+matches = flann.knnMatch(des1, des2, k=2)
+
+good=[]
+
+for match1, match2, in matches:
+    if match1.distance < 0.75*match2.distance:
+        good.append([match1])
+```
+
+
+```python
+flann_matches = cv2.drawMatchesKnn(apple_jacks, kp1, cereals, kp2, good, None, flags = 0)
+display(flann_matches)
+```
+
+<img width="716" height="442" alt="output_18_0" src="https://github.com/user-attachments/assets/b16ff18b-89a2-4e0a-9bb9-a9248d695e32" />
+
+
+```python
+sift = cv2.SIFT_create()
+
+kp1, des1 = sift.detectAndCompute(apple_jacks, None)
+kp2, des2 = sift.detectAndCompute(cereals, None)
+```
+
+
+```python
+flann_index_Kdtree = 0
+index_params = dict(algorithm = flann_index_KDtree, trees =5)
+search_param = dict(checks = 50)
+```
+
+
+```python
+flann = cv2.FlannBasedMatcher(index_params, search_params)
+
+matches = flann.knnMatch(des1, des2, k = 2)
+```
+
+
+```python
+matchesMask = [[0,0] for i in range(len(matches))]
+```
+
+
+```python
+ for i, (match1, match2) in enumerate(matches):
+        if match1.distance <0.75*match2.distance:
+            matchesMask[i] = [1,0]
+
+draw_params = dict(matchColor = (0, 255,0), 
+                  singlePointColor = (255,0,0),
+                  matchesMask = matchesMask,
+                  flags = 0)
+```
+
+
+```python
+flann_matches = cv2.drawMatchesKnn(apple_jacks, kp1, cereals, kp2, matches, None, **draw_params)
+
+display(flann_matches)
+```
+
+<img width="716" height="442" alt="output_24_0" src="https://github.com/user-attachments/assets/cbc639df-520d-4f9a-aba7-75a35401c8cd" />
+
+
+### Object Detection
+```python
+import cv2
+```
+
+
+```python
+import numpy as np
+```
+
+
+```python
+import matplotlib.pyplot as plt
+```
+
+
+```python
+%matplotlib inline
+```
+
+
+```python
+full = cv2.imread('Training_Sunflower.jpg')
+```
+
+
+```python
+full = cv2.cvtColor(full, cv2.COLOR_BGR2RGB)
+```
+
+
+```python
+plt.imshow(full)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f872c2ee810>
+
+
+<img width="277" height="252" alt="output_6_1" src="https://github.com/user-attachments/assets/64562e4f-bbb7-439a-855a-043f23dcac16" />
+
+
+```python
+test = cv2.imread('Sunflower_Testing.jpg')
+```
+
+
+```python
+test = cv2.cvtColor(test, cv2.COLOR_BGR2RGB)
+```
+
+
+```python
+plt.imshow(test)
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f872c1a5f10>
+
+<img width="375" height="223" alt="output_9_1" src="https://github.com/user-attachments/assets/fac53dd3-49bf-4c57-b8b8-91faeee1667e" />
+
+
+
+```python
+print('Test image shape:', full.shape)
+print('Training image shape:', test.shape)
+```
+
+    Test image shape: (572, 612, 3)
+    Training image shape: (667, 1186, 3)
+
+
+
+```python
+methods = ['cv2.TM_CCOEFF', 'cv2.TM_CCOEFF_NORMED', 'cv2.TM_CCORR', 'cv2.TM_CCORR_NORMED', 'cv2.TM_SQDIFF', 'cv2.TM_SQDIFF_NORMED']
+```
+
+
+```python
+ for m in methods:
+        
+        test_copy = test.copy()
+        method = eval(m)
+        
+        res = cv2.matchTemplate(test_copy, full, method)
+        
+        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
+        
+        if method in [cv2.TM_SQDIFF, cv2.TM_SQDIFF_NORMED]:
+            top_left = min_loc
+        else: 
+            top_left = max_loc
+            
+        height, width, channels = full.shape
+        bottom_right = (top_left[0] + width, top_left[1] + height)
+        
+        cv2.rectangle(test_copy, top_left, bottom_right, (255,0,0),10)
+        
+        plt.subplot(121)
+        plt.imshow(res)
+        plt.title("Heatmap of template matching")
+        plt.subplot(122)
+        plt.imshow(test_copy)
+        plt.title("Detection of template")
+        
+        plt.suptitle(m)
+        
+        plt.show()
+        print('\n')
+        print('\n')
+```
+
+<img width="368" height="211" alt="output_12_0" src="https://github.com/user-attachments/assets/49d0bde7-dcc6-4eeb-ba4b-639a5da6a0d1" />
+
+
+
+ <img width="368" height="211" alt="output_12_2" src="https://github.com/user-attachments/assets/b1ef6920-4a1b-4975-999a-79cc4f86e8df" />
+
+    
+    
+<img width="368" height="211" alt="output_12_4" src="https://github.com/user-attachments/assets/13593aef-17af-4f79-bd0d-2dff397fd940" />
+
+    
+<img width="368" height="211" alt="output_12_6" src="https://github.com/user-attachments/assets/a661de1b-df01-4a86-a277-d419d2717f6e" />
+
+<img width="368" height="211" alt="output_12_8" src="https://github.com/user-attachments/assets/12bcaaaa-0ed6-47f4-bb7f-bbbb25492c74" />
+
+<img width="368" height="211" alt="output_12_10" src="https://github.com/user-attachments/assets/9ff04231-7b15-402e-9185-f90c06c57019" />
+
